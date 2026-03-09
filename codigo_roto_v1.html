@@ -7,6 +7,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#060610">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>CÓDIGO ROTO</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -277,6 +279,7 @@ function go(){if(G.on)return;sE.style.display='none';G.on=true;setupT();ntf('�
 setInterval(()=>{if(!G.on)return;Object.keys(M).forEach(k=>{M[k].en.forEach(e=>{if(!e.al){e.al=true;e.hp=e.mh}})})},25000);
 setTimeout(()=>{if(G.on){P.gm++;ntf('🎁 Gema diaria +1💎')}},12000);
 loop();
+if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
 </script>
 </body>
 </html>
