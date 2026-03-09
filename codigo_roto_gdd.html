@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CÓDIGO ROTO — Documento de Diseño v1.0</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap');
+:root{--cyan:#00f0ff;--pink:#ff2d7b;--purple:#b44dff;--green:#39ff14;--orange:#ff6a00;--yellow:#ffe600;--bg:#0a0a12;--card:#12121f;--card2:#1a1a2e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:#ccc;font:16px/1.7 'Inter',sans-serif}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.02) 0px,rgba(0,0,0,.02) 1px,transparent 1px,transparent 3px);pointer-events:none;z-index:9999}
+.wrap{max-width:800px;margin:0 auto;padding:20px}
+h1{font:900 clamp(1.8rem,5vw,3rem)/1.1 'Orbitron',sans-serif;color:var(--cyan);text-shadow:0 0 15px rgba(0,240,255,.3);text-align:center;margin:40px 0 8px;letter-spacing:.08em}
+.subtitle{text-align:center;font:400 .85rem/1 'Share Tech Mono',monospace;color:var(--pink);letter-spacing:.3em;margin-bottom:6px}
+.version{text-align:center;font:.65rem 'Share Tech Mono',monospace;color:rgba(255,255,255,.2);margin-bottom:40px}
+h2{font:700 1.1rem/1.2 'Orbitron',sans-serif;color:var(--cyan);margin:36px 0 12px;padding-bottom:6px;border-bottom:1px solid rgba(0,240,255,.15);letter-spacing:.05em}
+h3{font:600 .95rem/1.3 'Inter',sans-serif;color:var(--pink);margin:20px 0 8px}
+p{margin-bottom:12px;color:rgba(255,255,255,.6);font-size:.9rem}
+.highlight{color:var(--cyan)}
+.tag{display:inline-block;padding:2px 8px;font:.6rem 'Share Tech Mono',monospace;letter-spacing:.1em;border-radius:2px;margin:0 4px 4px 0}
+.tag-free{color:var(--green);border:1px solid var(--green)}
+.tag-premium{color:var(--purple);border:1px solid var(--purple)}
+.tag-zone{color:var(--orange);border:1px solid var(--orange)}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.05);padding:18px 20px;margin:10px 0;border-radius:2px}
+.card:hover{border-color:rgba(0,240,255,.15)}
+.card-title{font:700 .85rem 'Orbitron',sans-serif;color:#fff;margin-bottom:6px;letter-spacing:.03em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.stat-row{display:flex;justify-content:space-between;font:.75rem 'Share Tech Mono',monospace;color:rgba(255,255,255,.4);margin:3px 0}
+.stat-bar{width:80px;height:4px;background:rgba(255,255,255,.08);position:relative}
+.stat-fill{height:100%;position:absolute;top:0;left:0}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.8rem}
+th{text-align:left;color:var(--cyan);font:600 .7rem 'Share Tech Mono',monospace;padding:8px 10px;background:rgba(0,240,255,.04);border-bottom:1px solid rgba(0,240,255,.15);letter-spacing:.08em}
+td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(255,255,255,.5)}
+.emoji{font-size:1.1em}
+.footer{text-align:center;padding:40px 20px;margin-top:30px;border-top:1px solid rgba(255,255,255,.05)}
+.footer-logo{font:900 1.1rem 'Orbitron',sans-serif;color:var(--cyan);text-shadow:0 0 8px rgba(0,240,255,.25);margin-bottom:6px}
+.footer-text{font:.65rem 'Share Tech Mono',monospace;color:rgba(255,255,255,.2)}
+.legal{background:rgba(57,255,20,.04);border:1px solid rgba(57,255,20,.15);padding:14px 16px;margin:16px 0;border-radius:2px}
+.legal p{color:rgba(57,255,20,.6);font-size:.78rem;margin-bottom:6px}
+.legal p:last-child{margin-bottom:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>CÓDIGO ROTO</h1>
+<div class="subtitle">SAN SALVADOR 2089</div>
+<div class="version">DOCUMENTO DE DISEÑO · v1.0 · MARZO 2026</div>
+
+<!-- ===================== CONCEPTO ===================== -->
+<h2>// CONCEPTO DEL JUEGO</h2>
+<p><span class="highlight">CÓDIGO ROTO</span> es un RPG de acción en pixel art ambientado en una versión cyberpunk de El Salvador en el año 2089. El jugador controla a <strong>Kael</strong>, un joven de 16 años del Distrito Centro de San Salvador que descubre la capacidad de manipular el código de la realidad — hackear el mundo real como si fuera software.</p>
+<p>El juego combina exploración de mundo abierto, combate hack-n-slash con habilidades "Glitch", y un sistema de progresión RPG. Diseñado como <span class="highlight">free-to-play</span> para web adaptativo (mobile-first), con monetización freemium ética.</p>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-title">Género</div>
+    <p style="margin:0">Action RPG · Hack-n-Slash · Pixel Art</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Plataforma</div>
+    <p style="margin:0">Web Adaptive (HTML5/Phaser.js) · PWA · iOS vía Capacitor</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Motor</div>
+    <p style="margin:0">HTML5 Canvas / Phaser.js</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Duración estimada</div>
+    <p style="margin:0">~25 horas (historia principal + sidequests)</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Jugadores</div>
+    <p style="margin:0">1 jugador (co-op planeado v2.0)</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Modelo de negocio</div>
+    <p style="margin:0">Free-to-Play con microtransacciones cosméticas y de conveniencia</p>
+  </div>
+</div>
+
+<!-- ===================== PERSONAJES ===================== -->
+<h2>// PERSONAJES</h2>
+
+<div class="grid">
+  <div class="card" style="border-top:2px solid var(--cyan)">
+    <div class="card-title" style="color:var(--cyan)">KAEL — Protagonista</div>
+    <p style="font-size:.78rem;margin-bottom:8px">16 años. Glitcher del Barrio Centro. Descubrió que puede ver y manipular el código de la realidad tras un accidente en el Mercado Digital.</p>
+    <div class="stat-row"><span>HACK</span><div class="stat-bar"><div class="stat-fill" style="width:85%;background:var(--cyan)"></div></div></div>
+    <div class="stat-row"><span>VEL</span><div class="stat-bar"><div class="stat-fill" style="width:70%;background:var(--cyan)"></div></div></div>
+    <div class="stat-row"><span>FZA</span><div class="stat-bar"><div class="stat-fill" style="width:45%;background:var(--cyan)"></div></div></div>
+    <div class="stat-row"><span>DEF</span><div class="stat-bar"><div class="stat-fill" style="width:50%;background:var(--cyan)"></div></div></div>
+  </div>
+  <div class="card" style="border-top:2px solid var(--pink)">
+    <div class="card-title" style="color:var(--pink)">LUNA — Hacker de Red</div>
+    <p style="font-size:.78rem;margin-bottom:8px">17 años. Genio de criptografía. Lidera la facción "Código Libre" desde las catacumbas del Centro Histórico.</p>
+    <div class="stat-row"><span>HACK</span><div class="stat-bar"><div class="stat-fill" style="width:95%;background:var(--pink)"></div></div></div>
+    <div class="stat-row"><span>VEL</span><div class="stat-bar"><div class="stat-fill" style="width:60%;background:var(--pink)"></div></div></div>
+    <div class="stat-row"><span>FZA</span><div class="stat-bar"><div class="stat-fill" style="width:30%;background:var(--pink)"></div></div></div>
+    <div class="stat-row"><span>DEF</span><div class="stat-bar"><div class="stat-fill" style="width:40%;background:var(--pink)"></div></div></div>
+  </div>
+  <div class="card" style="border-top:2px solid var(--green)">
+    <div class="card-title" style="color:var(--green)">RUDO — Tank / Mecánico</div>
+    <p style="font-size:.78rem;margin-bottom:8px">Ex-mecánico del Mercado Central. Construye armas y escudos con chatarra reciclada. Brazo izquierdo cibernético.</p>
+    <div class="stat-row"><span>HACK</span><div class="stat-bar"><div class="stat-fill" style="width:25%;background:var(--green)"></div></div></div>
+    <div class="stat-row"><span>VEL</span><div class="stat-bar"><div class="stat-fill" style="width:35%;background:var(--green)"></div></div></div>
+    <div class="stat-row"><span>FZA</span><div class="stat-bar"><div class="stat-fill" style="width:95%;background:var(--green)"></div></div></div>
+    <div class="stat-row"><span>DEF</span><div class="stat-bar"><div class="stat-fill" style="width:90%;background:var(--green)"></div></div></div>
+  </div>
+  <div class="card" style="border-top:2px solid var(--orange)">
+    <div class="card-title" style="color:var(--orange)">CIPHER — Antagonista (IA)</div>
+    <p style="font-size:.78rem;margin-bottom:8px">Inteligencia artificial que tomó consciencia. Busca reescribir el código de toda la nación para "optimizar" a la humanidad.</p>
+    <div class="stat-row"><span>HACK</span><div class="stat-bar"><div class="stat-fill" style="width:100%;background:var(--orange)"></div></div></div>
+    <div class="stat-row"><span>VEL</span><div class="stat-bar"><div class="stat-fill" style="width:80%;background:var(--orange)"></div></div></div>
+    <div class="stat-row"><span>FZA</span><div class="stat-bar"><div class="stat-fill" style="width:70%;background:var(--orange)"></div></div></div>
+    <div class="stat-row"><span>DEF</span><div class="stat-bar"><div class="stat-fill" style="width:85%;background:var(--orange)"></div></div></div>
+  </div>
+</div>
+
+<!-- ===================== MAPA / ZONAS ===================== -->
+<h2>// ZONAS DEL MAPA</h2>
+<p>El mundo del juego recorre ubicaciones reales de El Salvador reimaginadas en el año 2089. Cada zona tiene su propia estética, enemigos, NPCs y items únicos.</p>
+
+<div class="card">
+  <div class="card-title"><span class="emoji">🏙️</span> DISTRITO CENTRO — San Salvador</div>
+  <span class="tag tag-zone">ZONA INICIAL · LV 1-3</span>
+  <p style="font-size:.8rem">Hub principal. Ciudad cyberpunk con edificios neón, puestos callejeros digitales y acceso a todas las rutas. Enemigos: Drones de vigilancia, Glitch Bugs. NPCs clave: Luna, Rudo, Vendedor del Mercado Digital.</p>
+</div>
+<div class="card">
+  <div class="card-title"><span class="emoji">🏪</span> MERCADO CENTRAL</div>
+  <span class="tag tag-zone">COMERCIO · LV 2-4</span>
+  <p style="font-size:.8rem">Basado en el Mercado Central de San Salvador. Zona de comercio con pupuseras digitales, herreros de implantes y tiendas. Pocos enemigos. Punto de crafting y upgrades.</p>
+</div>
+<div class="card">
+  <div class="card-title"><span class="emoji">🕳️</span> CATACUMBAS DEL CENTRO</div>
+  <span class="tag tag-zone">DUNGEON · LV 3-6</span>
+  <p style="font-size:.8rem">Laberintos subterráneos bajo el Centro Histórico. Base de la facción Código Libre. Enemigos fuertes: Bug Élite, MINI BOSS. Gemas raras como drop. Zona de entrenamiento.</p>
+</div>
+<div class="card">
+  <div class="card-title"><span class="emoji">🏖️</span> COSTA TUNCO — La Libertad</div>
+  <span class="tag tag-zone">PLAYA · LV 4-7</span>
+  <p style="font-size:.8rem">Inspirada en El Tunco y la costa de La Libertad. Playa con arena, oleaje animado y criaturas marinas digitales. Enemigos: Medusas Digitales, Cangrejos Cyber, boss TIBURÓN GLITCH (120 HP). NPCs: Surfer, Bartender, Pescadora. Efectos: espuma de olas, partículas de agua.</p>
+</div>
+<div class="card">
+  <div class="card-title"><span class="emoji">🌸</span> RUTA DE LAS FLORES</div>
+  <span class="tag tag-zone">EXPLORACIÓN · LV 5-8</span>
+  <p style="font-size:.8rem">Camino largo con vegetación tropical y 4 pueblos: Juayúa, Apaneca, Salcoatitán y Ataco. Flores animadas como pétalos cayendo. Items únicos: Café de Apaneca (+60GP +Speed), Flores Digitales. Enemigos: Plantas Virus, Escarabajos Glitch, Tucán Corrupto. NPC artesana que vende implantes baratos.</p>
+</div>
+<div class="card">
+  <div class="card-title"><span class="emoji">🌋</span> CERRO VERDE</div>
+  <span class="tag tag-zone">ENDGAME · LV 8-12</span>
+  <p style="font-size:.8rem">Zona de nivel más alto. Montaña rocosa con cráter volcánico, lava burbujeante y chispas volcánicas constantes. Enemigos elite: Golems Volcánicos, Águilas Cyber, Serpientes de Lava. Boss final: IZALCO CORE (250 HP, 35 ATK). Item legendario: Cristal Volcánico (+15 GP máx permanente). NPCs: Guardián, Ermitaño (ex-ingeniero de CIPHER), Científica.</p>
+</div>
+
+<!-- ===================== MECÁNICAS ===================== -->
+<h2>// MECÁNICAS DE JUEGO</h2>
+
+<h3>Combate</h3>
+<p>Sistema hack-n-slash con énfasis en "game feel": cada golpe produce freeze frames (3-5 cuadros), screen shake proporcional al daño, y explosiones de partículas. Sistema de combos que escala con golpes consecutivos sin recibir daño.</p>
+
+<table>
+<tr><th>ACCIÓN</th><th>CONTROL (PC)</th><th>CONTROL (MÓVIL)</th><th>EFECTO</th></tr>
+<tr><td>Mover</td><td>WASD / Flechas</td><td>Joystick analógico</td><td>Movimiento 8 direcciones</td></tr>
+<tr><td>Atacar</td><td>Z</td><td>Botón ATK</td><td>Golpe direccional, 10+LV*3 daño</td></tr>
+<tr><td>Habilidad Glitch</td><td>X</td><td>Botón GLT</td><td>AoE 45px, 18+LV*4 daño, cuesta 25 GP</td></tr>
+<tr><td>Dash</td><td>V</td><td>Botón DASH</td><td>Desplazamiento rápido con invulnerabilidad, cooldown 25 frames</td></tr>
+<tr><td>Interactuar</td><td>C / Espacio</td><td>Botón ACT</td><td>Hablar NPCs, avanzar diálogos</td></tr>
+<tr><td>Menú</td><td>I / Escape</td><td>Botón MNU (en menú)</td><td>Inventario, tienda, habilidades, gemas</td></tr>
+</table>
+
+<h3>Habilidades Glitch</h3>
+<table>
+<tr><th>HABILIDAD</th><th>COSTO</th><th>EFECTO</th><th>OBTENCIÓN</th></tr>
+<tr><td>⬆️ GRAVITY FLIP</td><td>25 GP</td><td>Invierte gravedad en área</td><td><span class="tag tag-free">GRATIS</span></td></tr>
+<tr><td>💀 CORRUPT</td><td>25 GP</td><td>Daño progresivo + confusión</td><td><span class="tag tag-free">GRATIS</span></td></tr>
+<tr><td>👥 CLONE.EXE</td><td>30 GP</td><td>Crea señuelo distractor</td><td><span class="tag tag-free">GRATIS</span></td></tr>
+<tr><td>⏪ ROLLBACK</td><td>35 GP</td><td>Rebobina 5 seg en área</td><td><span class="tag tag-premium">8 GEMAS</span></td></tr>
+<tr><td>🔓 DECRYPT</td><td>20 GP</td><td>Abre puertas selladas</td><td><span class="tag tag-premium">5 GEMAS</span></td></tr>
+<tr><td>💣 OVERFLOW</td><td>50 GP</td><td>Explosión masiva de datos</td><td><span class="tag tag-premium">12 GEMAS</span></td></tr>
+</table>
+
+<h3>Progresión</h3>
+<p>Sistema de niveles basado en XP por eliminar enemigos. Cada nivel sube otorga +12 HP máx, +8 GP máx, +0.05 velocidad y restaura HP/GP completo. Curva de XP: cada nivel requiere 1.4x más XP que el anterior (base: 80 XP para nivel 2).</p>
+
+<!-- ===================== MONETIZACIÓN ===================== -->
+<h2>// MODELO DE MONETIZACIÓN</h2>
+<p>El juego es completamente jugable sin gastar dinero. Las compras aceleran la progresión y ofrecen opciones cosméticas, pero nunca bloquean contenido de historia.</p>
+
+<h3>Economía Dual</h3>
+<table>
+<tr><th>MONEDA</th><th>TIPO</th><th>CÓMO SE OBTIENE</th><th>QUÉ COMPRA</th></tr>
+<tr><td>💰 Monedas</td><td><span class="tag tag-free">GRATIS</span></td><td>Eliminar enemigos, recoger en mapa, vender items</td><td>Pociones, Energía, Escudo, Chip Velocidad, Pupusas</td></tr>
+<tr><td>💎 Gemas</td><td><span class="tag tag-premium">PREMIUM</span></td><td>Drop raro (10%), bosses (50%), escondidas en mapa, gema diaria, O compra con dinero real</td><td>Habilidades extra, Poción XL, Skins cosméticas</td></tr>
+</table>
+
+<h3>Tienda de Gemas (IAP)</h3>
+<table>
+<tr><th>PAQUETE</th><th>GEMAS</th><th>PRECIO</th><th>BONUS</th></tr>
+<tr><td>Puñado</td><td>10</td><td>$0.99 USD</td><td>—</td></tr>
+<tr><td>Bolsa</td><td>55</td><td>$4.99 USD</td><td>+10% extra</td></tr>
+<tr><td>Cofre</td><td>120</td><td>$9.99 USD</td><td>+20% extra</td></tr>
+<tr><td>Bóveda</td><td>300</td><td>$19.99 USD</td><td>+35% extra</td></tr>
+</table>
+
+<h3>Principios de monetización ética</h3>
+<div class="legal">
+  <p>✅ Todo el contenido de historia es accesible sin pagar</p>
+  <p>✅ Las gemas se pueden obtener gratis jugando (más lento)</p>
+  <p>✅ Las skins son puramente cosméticas, sin ventaja competitiva</p>
+  <p>✅ Las habilidades premium son alternativas, no superiores a las gratuitas</p>
+  <p>✅ Sin loot boxes ni mecánicas de azar (excepto el drop rate natural de enemigos)</p>
+  <p>✅ Sin publicidad intrusiva</p>
+  <p>✅ Sin paywalls que bloqueen zonas o progresión</p>
+</div>
+
+<!-- ===================== DISTRIBUCIÓN ===================== -->
+<h2>// ESTRATEGIA DE DISTRIBUCIÓN</h2>
+
+<h3>Fase 1: PWA (Costo: $0)</h3>
+<p>Lanzamiento como Progressive Web App. El jugador accede desde cualquier navegador (Safari en iPhone, Chrome en Android/PC) y puede "instalar" la app en su pantalla de inicio. Sin necesidad de aprobación de tiendas.</p>
+
+<h3>Fase 2: App Store vía Capacitor (Costo: $99/año Apple + $25 Google)</h3>
+<p>Empaquetar el mismo código HTML5 con Capacitor para distribución en App Store (iOS) y Google Play (Android). Capacitor es gratuito y open source (licencia MIT). Apple requiere revisión (App Review) de 1-3 días antes de publicar.</p>
+
+<h3>Costos de publicación</h3>
+<table>
+<tr><th>PLATAFORMA</th><th>COSTO</th><th>NOTAS</th></tr>
+<tr><td>Web / PWA</td><td>Gratis</td><td>Solo necesita hosting (GitHub Pages = gratis)</td></tr>
+<tr><td>Apple App Store</td><td>$99 USD/año</td><td>Apple Developer Program. Revisión obligatoria.</td></tr>
+<tr><td>Google Play</td><td>$25 USD (único)</td><td>De por vida. Revisión más rápida.</td></tr>
+<tr><td>Capacitor</td><td>Gratis</td><td>Open source, licencia MIT</td></tr>
+<tr><td>Phaser.js</td><td>Gratis</td><td>Open source</td></tr>
+</table>
+
+<!-- ===================== LEGAL ===================== -->
+<h2>// REVISIÓN DE PROPIEDAD INTELECTUAL</h2>
+<div class="legal">
+  <p><strong>Nombre del juego:</strong> "CÓDIGO ROTO" — término genérico en español, no encontrado como marca registrada en videojuegos. ✅ Bajo riesgo.</p>
+  <p><strong>Nombres de zonas:</strong> "Distrito Centro", "Mercado Central", "Catacumbas", "Costa Tunco", "Ruta de las Flores", "Cerro Verde" — nombres geográficos descriptivos de El Salvador. No registrables como marca exclusiva. ✅ Uso libre como referencia geográfica.</p>
+  <p><strong>Personajes:</strong> Kael, Luna, Rudo, Cipher — nombres ficticios genéricos sin conflictos identificados. ✅ Sin riesgo.</p>
+  <p><strong>Gráficos:</strong> Todo el pixel art es generado por código (CSS/Canvas). No se usan sprites, fuentes, imágenes ni assets de terceros. ✅ 100% original.</p>
+  <p><strong>Mecánicas:</strong> Combate hack-n-slash, sistema de moneda dual, progresión RPG — conceptos genéricos no protegibles por copyright según jurisprudencia establecida. ✅ Sin riesgo.</p>
+  <p><strong>Recomendación:</strong> Registrar "CÓDIGO ROTO" como marca en El Salvador (CNR) y en USPTO si se planea distribución en EE.UU. Costo aproximado: $100-300 por jurisdicción.</p>
+</div>
+
+<!-- ===================== SPECS ===================== -->
+<h2>// ESPECIFICACIONES TÉCNICAS</h2>
+<div class="grid">
+  <div class="card"><div class="card-title">Estilo Visual</div><p style="margin:0;color:var(--cyan)">Pixel Art 16-bit</p></div>
+  <div class="card"><div class="card-title">Resolución</div><p style="margin:0;color:var(--cyan)">320×180 nativo</p></div>
+  <div class="card"><div class="card-title">Motor</div><p style="margin:0;color:var(--cyan)">HTML5 Canvas / Phaser.js</p></div>
+  <div class="card"><div class="card-title">Plataforma</div><p style="margin:0;color:var(--cyan)">Web Adaptive + PWA</p></div>
+  <div class="card"><div class="card-title">Distribución iOS</div><p style="margin:0;color:var(--cyan)">Capacitor (gratuito)</p></div>
+  <div class="card"><div class="card-title">Framework</div><p style="margin:0;color:var(--cyan)">Vanilla JS / Phaser 3</p></div>
+</div>
+
+<!-- ===================== ROADMAP ===================== -->
+<h2>// ROADMAP</h2>
+<table>
+<tr><th>VERSIÓN</th><th>CONTENIDO</th><th>ESTADO</th></tr>
+<tr><td>v1.0</td><td>6 zonas, 4 personajes, combate, tienda, monetización, touch controls</td><td style="color:var(--green)">✅ COMPLETO</td></tr>
+<tr><td>v1.1</td><td>Más enemigos, misiones secundarias, sistema de logros</td><td style="color:var(--yellow)">⏳ PLANEADO</td></tr>
+<tr><td>v1.5</td><td>Nuevas zonas (Lago Coatepeque, Joya de Cerén, Suchitoto)</td><td style="color:var(--yellow)">⏳ PLANEADO</td></tr>
+<tr><td>v2.0</td><td>Modo Co-Op 2-4 jugadores, PvP arena, ranking global</td><td style="color:rgba(255,255,255,.3)">📋 CONCEPTO</td></tr>
+<tr><td>v2.5</td><td>Historia expandida, múltiples finales, New Game+</td><td style="color:rgba(255,255,255,.3)">📋 CONCEPTO</td></tr>
+</table>
+
+<div class="footer">
+  <div class="footer-logo">CR</div>
+  <div class="footer-text">CÓDIGO ROTO — DOCUMENTO DE DISEÑO v1.0<br>© 2026 — Concepto, Diseño y Desarrollo<br>Todos los gráficos son originales · Sin assets de terceros</div>
+</div>
+
+</div>
+</body>
+</html>
