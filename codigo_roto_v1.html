@@ -85,7 +85,7 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;posit
 </style>
 </head>
 <body>
-<div id="S"><h1>CÓDIGO ROTO</h1><div class="s1">SAN SALVADOR 2089</div><div class="s2">v1.0 · FREE TO PLAY</div><div class="s3">— TOCA PARA JUGAR —</div></div>
+<div id="S"><h1>CÓDIGO ROTO</h1><div class="s1">SAN SALVADOR 2089</div><div class="s2" id="VR">v1.08 · FREE TO PLAY</div><div class="s3">— TOCA PARA JUGAR —</div></div>
 <canvas id="G"></canvas>
 <div id="TC">
 <div class="jz" id="JZ"><div class="jb" id="JB"><div class="js" id="JS"></div></div></div>
@@ -105,6 +105,7 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;posit
 <div class="tc on" id="t-inv"></div><div class="tc" id="t-abl"></div><div class="tc" id="t-shp"></div><div class="tc" id="t-gem"></div>
 </div>
 <script>
+const VER='1.08';
 const cv=document.getElementById('G'),X=cv.getContext('2d'),T=16,RS=2,
 C={c:'#00f0ff',p:'#ff2d7b',v:'#b44dff',g:'#39ff14',o:'#ff6a00',y:'#ffe600',r:'#ff3333',w:'#fff',sk:'#dda07a',hr:'#1a1a2e'};
 const G={w:320,h:180,s:1,on:false,cam:{x:0,y:0},map:'centro',f:0,keys:{},jx:0,jy:0,
@@ -304,6 +305,7 @@ X.fillStyle='rgba(255,255,255,.15)';X.font='8px "Press Start 2P"';const mn=ML[G.
 if(G.co>=2){X.fillStyle=C.o;X.font='14px "Press Start 2P"';X.globalAlpha=.55+Math.sin(G.f*.15)*.35;X.fillText(G.co+'x COMBO!',G.w/2-45,36);X.globalAlpha=1}
 if(P.dsC<=0){X.fillStyle=C.v;X.globalAlpha=.35+Math.sin(G.f*.1)*.2;X.font='8px "Press Start 2P"';X.fillText('DASH ✓',G.w/2-20,G.h-5);X.globalAlpha=1}
 if(G.f<200&&!mob){X.fillStyle='rgba(255,255,255,.12)';X.font='6px "Press Start 2P"';X.fillText('WASD:Mover Z:Ataque X:Glitch V:Dash C:Hablar I:Menu',4,G.h-5)}
+X.fillStyle='rgba(255,255,255,.08)';X.font='4px "Press Start 2P"';X.fillText('v'+VER,G.w-28,G.h-2);
 if(G.fl>0){X.fillStyle='rgba(255,0,40,.1)';X.fillRect(0,0,G.w,G.h)}}
 function getSaveData(){return{v:1,map:G.map,px:P.x,py:P.y,hp:P.hp,mhp:P.mhp,gp:P.gp,mgp:P.mgp,xp:P.xp,xpN:P.xpN,lv:P.lv,sp:P.sp,cn:P.cn,gm:P.gm,it:P.it,ab:P.ab,ca:P.ca,kl:P.kl}}
 function applySave(d){if(!d||d.v!==1)return false;G.map=d.map||'centro';P.x=d.px;P.y=d.py;P.hp=d.hp;P.mhp=d.mhp;P.gp=d.gp;P.mgp=d.mgp;P.xp=d.xp;P.xpN=d.xpN;P.lv=d.lv;P.sp=d.sp;P.cn=d.cn;P.gm=d.gm;P.it=d.it;P.ab=d.ab;P.ca=d.ca;P.kl=d.kl;return true}
@@ -311,6 +313,7 @@ function saveGame(){const d=getSaveData();try{localStorage.setItem('cr_save',JSO
 function loadGame(){try{const d=JSON.parse(localStorage.getItem('cr_save'));if(d&&d.v===1)return applySave(d)}catch(e){}return false}
 async function loadCloud(){if(!window._fbReady||!window._fbUID)return false;try{const snap=await window._fbGetDoc(window._fbDoc(window._fbDB,'saves',window._fbUID));if(snap.exists()){const cd=snap.data();const ld=JSON.parse(localStorage.getItem('cr_save'));if(cd&&cd.v===1&&(!ld||cd.lv>ld.lv||(cd.lv===ld.lv&&cd.kl>ld.kl))){applySave(cd);localStorage.setItem('cr_save',JSON.stringify(cd));return true}}}catch(e){}return false}
 function loop(){upd();drw();requestAnimationFrame(loop)}
+document.getElementById('VR').textContent='v'+VER+' · FREE TO PLAY';
 const sE=document.getElementById('S');sE.addEventListener('click',go);sE.addEventListener('touchstart',e=>{e.preventDefault();go()},{passive:false});
 async function go(){if(G.on)return;sE.style.display='none';G.on=true;initAudio();setupT();let loaded=loadGame();if(window._fbReady){const cloud=await loadCloud();if(cloud)loaded=true}if(loaded){ntf('💾 Partida cargada · LV'+P.lv)}else{ntf('🎮 ¡Bienvenido a Código Roto!')}playAmb(G.map)}
 setInterval(()=>{if(!G.on)return;Object.keys(M).forEach(k=>{M[k].en.forEach(e=>{if(!e.al){e.al=true;e.hp=e.mh}})})},25000);
