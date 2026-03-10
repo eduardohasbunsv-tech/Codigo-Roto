@@ -85,7 +85,7 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;posit
 </style>
 </head>
 <body>
-<div id="S"><h1>CÓDIGO ROTO</h1><div class="s1">SAN SALVADOR 2089</div><div class="s2" id="VR">v1.08 · FREE TO PLAY</div><div class="s3">— TOCA PARA JUGAR —</div></div>
+<div id="S"><h1>CÓDIGO ROTO</h1><div class="s1">SAN SALVADOR 2089</div><div class="s2" id="VR">v1.09 · FREE TO PLAY</div><div class="s3">— TOCA PARA JUGAR —</div></div>
 <canvas id="G"></canvas>
 <div id="TC">
 <div class="jz" id="JZ"><div class="jb" id="JB"><div class="js" id="JS"></div></div></div>
@@ -105,7 +105,7 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;posit
 <div class="tc on" id="t-inv"></div><div class="tc" id="t-abl"></div><div class="tc" id="t-shp"></div><div class="tc" id="t-gem"></div>
 </div>
 <script>
-const VER='1.08';
+const VER='1.09';
 const cv=document.getElementById('G'),X=cv.getContext('2d'),T=16,RS=2,
 C={c:'#00f0ff',p:'#ff2d7b',v:'#b44dff',g:'#39ff14',o:'#ff6a00',y:'#ffe600',r:'#ff3333',w:'#fff',sk:'#dda07a',hr:'#1a1a2e'};
 const G={w:320,h:180,s:1,on:false,cam:{x:0,y:0},map:'centro',f:0,keys:{},jx:0,jy:0,
@@ -275,11 +275,11 @@ else if(t===8){X.fillStyle='#050908';X.fillRect(px,py,T,T);X.fillStyle='#38260e'
 else if(t===9){X.fillStyle='#161420';X.fillRect(px,py,T,T);X.fillStyle='#1e1c28';X.fillRect(px,py,T,3);X.fillRect(px,py,3,T);if(ty<=2){X.fillStyle='rgba(255,255,255,.06)';X.fillRect(px+2,py,T-4,3)}}
 else if(t===10){X.fillStyle=(tx+ty)%2===0?'#0a100a':'#080e08';X.fillRect(px,py,T,T);const fc=['#ff69b4','#ff4488','#ffaa00','#cc44ff'][(tx*5+ty*3)%4];X.fillStyle=fc;X.globalAlpha=.45+Math.sin(G.f*.03+tx+ty)*.3;X.fillRect(px+3+(tx*7)%8,py+2+(ty*5)%8,3,3);X.globalAlpha=1;X.fillStyle='#1a4a1a';X.fillRect(px+4+(tx*7)%8,py+5+(ty*5)%8,1,4)}
 else if(t===11){X.fillStyle='#380600';X.fillRect(px,py,T,T);const lg=Math.sin(G.f*.06+tx+ty)*.3;X.fillStyle=`rgba(255,50,0,${.35+lg})`;X.fillRect(px+2,py+2,T-4,T-4);X.fillStyle=`rgba(255,140,0,${.18+lg*.5})`;X.fillRect(px+4,py+4,T-8,T-8)}}
-m.po.forEach(p=>{X.fillStyle=C.v;X.globalAlpha=.25+Math.sin(G.f*.08)*.18;X.fillRect(p.x,p.y,p.w,p.h);X.globalAlpha=1;X.fillStyle=C.v;X.font='9px "Press Start 2P"';X.fillText(p.lb,p.x+2,p.y+(p.y===0?14:-3))});
+m.po.forEach(p=>{X.fillStyle=C.v;X.globalAlpha=.25+Math.sin(G.f*.08)*.18;X.fillRect(p.x,p.y,p.w,p.h);X.globalAlpha=1;X.fillStyle=C.v;X.font='14px "Press Start 2P"';X.fillText(p.lb,p.x+2,p.y+(p.y===0?16:-5))});
 m.it.forEach(it=>{if(it.tk)return;const bob=Math.sin(G.f*.07+it.x)*2;X.font='14px serif';X.fillText(it.i,it.x+1,it.y+12+bob)});
 m.en.forEach(e=>{if(!e.al)return;const ex=Math.floor(e.x),ey=Math.floor(e.y);if(e.ht>0){X.fillStyle=C.w;X.fillRect(ex,ey,e.w,e.h)}else{X.fillStyle=e.cl;X.fillRect(ex,ey,e.w,e.h);X.fillStyle=C.w;X.fillRect(ex+2,ey+2,2,2);X.fillRect(ex+6,ey+2,2,2);X.fillStyle='#000';X.fillRect(ex+3,ey+3,1,1);X.fillRect(ex+7,ey+3,1,1);if(e.tp==='boss'&&G.f%4<2){X.fillStyle='rgba(255,0,80,.3)';X.fillRect(ex-1,ey+Math.random()*e.h,e.w+2,2)}}
-X.fillStyle='rgba(0,0,0,.5)';X.fillRect(ex-1,ey-5,e.w+2,3);X.fillStyle=e.hp/e.mh>.3?C.g:C.r;X.fillRect(ex,ey-4,(e.hp/e.mh)*e.w,1);if(e.tp==='boss'){X.fillStyle=C.r;X.font='8px "Press Start 2P"';X.fillText(e.nm,ex-8,ey-12)}});
-m.np.forEach(np=>{const nx=Math.floor(np.x),ny=Math.floor(np.y);X.fillStyle=np.cl;X.fillRect(nx+1,ny,np.w-2,np.h);X.fillStyle=C.sk;X.fillRect(nx+2,ny,6,6);X.fillStyle=C.w;X.fillRect(nx+3,ny+2,2,2);X.fillRect(nx+6,ny+2,2,2);X.fillStyle=np.cl;X.fillRect(nx+1,ny-1,8,2);X.font='8px "Press Start 2P"';const tw=X.measureText(np.n).width;X.fillText(np.n,nx+np.w/2-tw/2,ny-7);const dx=(P.x+P.w/2)-(np.x+np.w/2),dy=(P.y+P.h/2)-(np.y+np.h/2);if(Math.abs(dx)<24&&Math.abs(dy)<24){X.fillStyle=C.g;X.globalAlpha=.45+Math.sin(G.f*.12)*.4;X.font='12px "Press Start 2P"';X.fillText('▶',nx+np.w/2-5,ny-16);X.globalAlpha=1}});
+X.fillStyle='rgba(0,0,0,.5)';X.fillRect(ex-1,ey-5,e.w+2,3);X.fillStyle=e.hp/e.mh>.3?C.g:C.r;X.fillRect(ex,ey-4,(e.hp/e.mh)*e.w,1);if(e.tp==='boss'){X.fillStyle=C.r;X.font='14px "Press Start 2P"';X.fillText(e.nm,ex-10,ey-16)}});
+m.np.forEach(np=>{const nx=Math.floor(np.x),ny=Math.floor(np.y);X.fillStyle=np.cl;X.fillRect(nx+1,ny,np.w-2,np.h);X.fillStyle=C.sk;X.fillRect(nx+2,ny,6,6);X.fillStyle=C.w;X.fillRect(nx+3,ny+2,2,2);X.fillRect(nx+6,ny+2,2,2);X.fillStyle=np.cl;X.fillRect(nx+1,ny-1,8,2);X.font='14px "Press Start 2P"';const tw=X.measureText(np.n).width;X.fillText(np.n,nx+np.w/2-tw/2,ny-10);const dx=(P.x+P.w/2)-(np.x+np.w/2),dy=(P.y+P.h/2)-(np.y+np.h/2);if(Math.abs(dx)<24&&Math.abs(dy)<24){X.fillStyle=C.g;X.globalAlpha=.45+Math.sin(G.f*.12)*.4;X.font='18px "Press Start 2P"';X.fillText('▶',nx+np.w/2-6,ny-22);X.globalAlpha=1}});
 const bl=P.iv>0&&G.f%4<2;if(!bl){X.fillStyle='rgba(0,0,0,.2)';X.fillRect(Math.floor(P.x)-1,Math.floor(P.y)+P.h-1,P.w+2,3);
 if(P.ds){X.fillStyle=C.v;X.globalAlpha=.25;X.fillRect(Math.floor(P.x)-P.dvx*2,Math.floor(P.y)-P.dvy*2,P.w,P.h);X.globalAlpha=1}
 X.fillStyle=C.v;X.fillRect(Math.floor(P.x),Math.floor(P.y)+6,P.w,P.h-6);X.fillStyle='#222';X.fillRect(Math.floor(P.x)+4,Math.floor(P.y)+7,2,4);X.fillStyle=C.c;X.fillRect(Math.floor(P.x)+4,Math.floor(P.y)+6,2,1);
@@ -290,23 +290,24 @@ X.fillStyle=C.c;X.fillRect(Math.floor(P.x)+1,Math.floor(P.y)+P.h,3,1);X.fillRect
 if(P.ak){const ab=aBox();X.save();X.globalAlpha=.45;X.fillStyle=C.p;X.fillRect(ab.x,ab.y,ab.w,ab.h);X.strokeStyle=C.w;X.lineWidth=1.5;X.globalAlpha=.6;X.beginPath();if(P.dir==='right')X.arc(P.x+P.w,P.y+P.h/2,13,-Math.PI/3,Math.PI/3);else if(P.dir==='left')X.arc(P.x,P.y+P.h/2,13,Math.PI*2/3,Math.PI*4/3);else if(P.dir==='up')X.arc(P.x+P.w/2,P.y,13,-Math.PI*5/6,-Math.PI/6);else X.arc(P.x+P.w/2,P.y+P.h,13,Math.PI/6,Math.PI*5/6);X.stroke();X.restore()}
 if(P.gl){X.strokeStyle=C.c;X.lineWidth=1.5;X.globalAlpha=.5;X.beginPath();X.arc(P.x+P.w/2,P.y+P.h/2,18+P.glT,0,Math.PI*2);X.stroke();X.beginPath();X.arc(P.x+P.w/2,P.y+P.h/2,8+P.glT*.5,0,Math.PI*2);X.stroke();X.globalAlpha=1}
 G.pt.forEach(p=>{X.fillStyle=p.c;X.globalAlpha=Math.min(1,p.l/14);X.fillRect(Math.floor(p.x),Math.floor(p.y),p.s,p.s)});X.globalAlpha=1;
-G.dm.forEach(d=>{X.fillStyle=d.c;X.globalAlpha=d.l/22;X.font='bold 12px "Press Start 2P"';X.fillText('-'+d.v,Math.floor(d.x),Math.floor(d.y))});X.globalAlpha=1;
+G.dm.forEach(d=>{X.fillStyle=d.c;X.globalAlpha=d.l/22;X.font='bold 18px "Press Start 2P"';X.fillText('-'+d.v,Math.floor(d.x),Math.floor(d.y))});X.globalAlpha=1;
 X.restore();
-// HUD
-X.fillStyle='rgba(3,3,8,.6)';X.fillRect(0,0,G.w,28);
-X.fillStyle=C.p;X.font='9px "Press Start 2P"';X.fillText('♥',3,11);X.fillStyle='rgba(255,255,255,.06)';X.fillRect(16,3,56,9);X.fillStyle=P.hp/P.mhp>.3?C.p:C.r;X.fillRect(16,3,56*(P.hp/P.mhp),9);X.fillStyle=C.w;X.font='7px "Press Start 2P"';X.fillText(P.hp+'/'+P.mhp,18,11);
-X.fillStyle=C.c;X.font='9px "Press Start 2P"';X.fillText('⚡',3,23);X.fillStyle='rgba(255,255,255,.06)';X.fillRect(16,16,56,8);X.fillStyle=C.c;X.fillRect(16,16,56*(P.gp/P.mgp),8);
-X.fillStyle=C.y;X.font='9px "Press Start 2P"';X.fillText('LV'+P.lv,78,11);X.fillStyle='rgba(255,255,255,.06)';X.fillRect(78,16,40,7);X.fillStyle=C.g;X.fillRect(78,16,40*(P.xp/P.xpN),7);
-X.fillStyle=C.y;X.font='8px "Press Start 2P"';X.fillText('💰'+P.cn,124,11);X.fillStyle=C.v;X.fillText('💎'+P.gm,124,23);
-X.fillStyle=C.c;X.font='8px "Press Start 2P"';X.fillText(P.ab[P.ca],160,11);
-if(P.glC>0){X.fillStyle='rgba(0,240,255,.12)';X.fillRect(160,14,30*(P.glC/50),5)}
-if(P.dsC>0){X.fillStyle='rgba(180,77,255,.12)';X.fillRect(160,20,30*(P.dsC/22),5)}
-X.fillStyle='rgba(255,255,255,.15)';X.font='8px "Press Start 2P"';const mn=ML[G.map]||G.map;X.fillText(mn,G.w-X.measureText(mn).width-4,11);X.fillText('KILLS:'+P.kl,G.w-60,23);
-if(G.co>=2){X.fillStyle=C.o;X.font='14px "Press Start 2P"';X.globalAlpha=.55+Math.sin(G.f*.15)*.35;X.fillText(G.co+'x COMBO!',G.w/2-45,36);X.globalAlpha=1}
-if(P.dsC<=0){X.fillStyle=C.v;X.globalAlpha=.35+Math.sin(G.f*.1)*.2;X.font='8px "Press Start 2P"';X.fillText('DASH ✓',G.w/2-20,G.h-5);X.globalAlpha=1}
-if(G.f<200&&!mob){X.fillStyle='rgba(255,255,255,.12)';X.font='6px "Press Start 2P"';X.fillText('WASD:Mover Z:Ataque X:Glitch V:Dash C:Hablar I:Menu',4,G.h-5)}
-X.fillStyle='rgba(255,255,255,.08)';X.font='4px "Press Start 2P"';X.fillText('v'+VER,G.w-28,G.h-2);
-if(G.fl>0){X.fillStyle='rgba(255,0,40,.1)';X.fillRect(0,0,G.w,G.h)}}
+// HUD — render at native canvas resolution for crisp text
+X.setTransform(1,0,0,1,0,0);
+X.fillStyle='rgba(3,3,8,.6)';X.fillRect(0,0,G.w*RS,56);
+X.fillStyle=C.p;X.font='18px "Press Start 2P"';X.fillText('♥',6,22);X.fillStyle='rgba(255,255,255,.06)';X.fillRect(32,6,112,18);X.fillStyle=P.hp/P.mhp>.3?C.p:C.r;X.fillRect(32,6,112*(P.hp/P.mhp),18);X.fillStyle=C.w;X.font='14px "Press Start 2P"';X.fillText(P.hp+'/'+P.mhp,36,22);
+X.fillStyle=C.c;X.font='18px "Press Start 2P"';X.fillText('⚡',6,46);X.fillStyle='rgba(255,255,255,.06)';X.fillRect(32,32,112,16);X.fillStyle=C.c;X.fillRect(32,32,112*(P.gp/P.mgp),16);
+X.fillStyle=C.y;X.font='18px "Press Start 2P"';X.fillText('LV'+P.lv,156,22);X.fillStyle='rgba(255,255,255,.06)';X.fillRect(156,32,80,14);X.fillStyle=C.g;X.fillRect(156,32,80*(P.xp/P.xpN),14);
+X.fillStyle=C.y;X.font='16px "Press Start 2P"';X.fillText('💰'+P.cn,248,22);X.fillStyle=C.v;X.fillText('💎'+P.gm,248,46);
+X.fillStyle=C.c;X.font='16px "Press Start 2P"';X.fillText(P.ab[P.ca],320,22);
+if(P.glC>0){X.fillStyle='rgba(0,240,255,.12)';X.fillRect(320,28,60*(P.glC/50),10)}
+if(P.dsC>0){X.fillStyle='rgba(180,77,255,.12)';X.fillRect(320,40,60*(P.dsC/22),10)}
+X.fillStyle='rgba(255,255,255,.4)';X.font='16px "Press Start 2P"';const mn=ML[G.map]||G.map;X.fillText(mn,G.w*RS-X.measureText(mn).width-8,22);X.fillText('KILLS:'+P.kl,G.w*RS-120,46);
+if(G.co>=2){X.fillStyle=C.o;X.font='28px "Press Start 2P"';X.globalAlpha=.55+Math.sin(G.f*.15)*.35;X.fillText(G.co+'x COMBO!',G.w*RS/2-90,72);X.globalAlpha=1}
+if(P.dsC<=0){X.fillStyle=C.v;X.globalAlpha=.6+Math.sin(G.f*.1)*.3;X.font='16px "Press Start 2P"';X.fillText('DASH ✓',G.w*RS/2-40,G.h*RS-10);X.globalAlpha=1}
+if(G.f<200&&!mob){X.fillStyle='rgba(255,255,255,.2)';X.font='12px "Press Start 2P"';X.fillText('WASD:Mover Z:Ataque X:Glitch V:Dash C:Hablar I:Menu',8,G.h*RS-10)}
+X.fillStyle='rgba(255,255,255,.08)';X.font='8px "Press Start 2P"';X.fillText('v'+VER,G.w*RS-56,G.h*RS-4);
+if(G.fl>0){X.fillStyle='rgba(255,0,40,.1)';X.fillRect(0,0,G.w*RS,G.h*RS)}}
 function getSaveData(){return{v:1,map:G.map,px:P.x,py:P.y,hp:P.hp,mhp:P.mhp,gp:P.gp,mgp:P.mgp,xp:P.xp,xpN:P.xpN,lv:P.lv,sp:P.sp,cn:P.cn,gm:P.gm,it:P.it,ab:P.ab,ca:P.ca,kl:P.kl}}
 function applySave(d){if(!d||d.v!==1)return false;G.map=d.map||'centro';P.x=d.px;P.y=d.py;P.hp=d.hp;P.mhp=d.mhp;P.gp=d.gp;P.mgp=d.mgp;P.xp=d.xp;P.xpN=d.xpN;P.lv=d.lv;P.sp=d.sp;P.cn=d.cn;P.gm=d.gm;P.it=d.it;P.ab=d.ab;P.ca=d.ca;P.kl=d.kl;return true}
 function saveGame(){const d=getSaveData();try{localStorage.setItem('cr_save',JSON.stringify(d))}catch(e){}if(window._fbReady&&window._fbUID){try{window._fbSetDoc(window._fbDoc(window._fbDB,'saves',window._fbUID),d)}catch(e){}}}
