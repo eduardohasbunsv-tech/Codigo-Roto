@@ -318,7 +318,7 @@ setInterval(()=>{if(G.on)saveGame()},30000);
 window.addEventListener('beforeunload',()=>{if(G.on)saveGame()});
 setTimeout(()=>{if(G.on){P.gm++;ntf('🎁 Gema diaria +1💎')}},12000);
 loop();
-if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
 </html>

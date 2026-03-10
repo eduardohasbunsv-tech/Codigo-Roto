@@ -1,9 +1,9 @@
 const CACHE_NAME = 'codigo-roto-v1';
 const ASSETS = [
-  '/codigo_roto_v1.html',
-  '/manifest.json',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  'codigo_roto_v1.html',
+  'manifest.json',
+  'icons/icon-192.png',
+  'icons/icon-512.png'
 ];
 
 self.addEventListener('install', e => {
@@ -34,6 +34,6 @@ self.addEventListener('fetch', e => {
           return res;
         })
       )
-      .catch(() => caches.match('/codigo_roto_v1.html'))
+      .catch(() => caches.match('codigo_roto_v1.html'))
   );
 });
