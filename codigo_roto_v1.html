@@ -10,6 +10,17 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>CÓDIGO ROTO</title>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import{getAuth,signInAnonymously,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import{getFirestore,doc,setDoc,getDoc}from"https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+const fb=initializeApp({apiKey:"AIzaSyCZBz_otosOB4QnTMaRzpSqFp7fz23Z-Cg",authDomain:"codigo-roto.firebaseapp.com",projectId:"codigo-roto",storageBucket:"codigo-roto.firebasestorage.app",messagingSenderId:"87052509480",appId:"1:87052509480:web:703647955c0249ef35301d"});
+const auth=getAuth(fb),db=getFirestore(fb);
+window._fbAuth=auth;window._fbDB=db;window._fbUID=null;window._fbReady=false;
+window._fbSetDoc=setDoc;window._fbDoc=doc;window._fbGetDoc=getDoc;
+signInAnonymously(auth).catch(()=>{});
+onAuthStateChanged(auth,u=>{if(u){window._fbUID=u.uid;window._fbReady=true}});
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
@@ -294,11 +305,14 @@ if(G.co>=2){X.fillStyle=C.o;X.font='6px "Press Start 2P"';X.globalAlpha=.55+Math
 if(P.dsC<=0){X.fillStyle=C.v;X.globalAlpha=.35+Math.sin(G.f*.1)*.2;X.font='3px "Press Start 2P"';X.fillText('DASH ✓',G.w/2-12,G.h-4);X.globalAlpha=1}
 if(G.f<200&&!mob){X.fillStyle='rgba(255,255,255,.12)';X.font='3px "Press Start 2P"';X.fillText('WASD:Mover Z:Ataque X:Glitch V:Dash C:Hablar I:Menu',4,G.h-4)}
 if(G.fl>0){X.fillStyle='rgba(255,0,40,.1)';X.fillRect(0,0,G.w,G.h)}}
-function saveGame(){try{localStorage.setItem('cr_save',JSON.stringify({v:1,map:G.map,px:P.x,py:P.y,hp:P.hp,mhp:P.mhp,gp:P.gp,mgp:P.mgp,xp:P.xp,xpN:P.xpN,lv:P.lv,sp:P.sp,cn:P.cn,gm:P.gm,it:P.it,ab:P.ab,ca:P.ca,kl:P.kl}))}catch(e){}}
-function loadGame(){try{const d=JSON.parse(localStorage.getItem('cr_save'));if(!d||d.v!==1)return false;G.map=d.map||'centro';P.x=d.px;P.y=d.py;P.hp=d.hp;P.mhp=d.mhp;P.gp=d.gp;P.mgp=d.mgp;P.xp=d.xp;P.xpN=d.xpN;P.lv=d.lv;P.sp=d.sp;P.cn=d.cn;P.gm=d.gm;P.it=d.it;P.ab=d.ab;P.ca=d.ca;P.kl=d.kl;return true}catch(e){return false}}
+function getSaveData(){return{v:1,map:G.map,px:P.x,py:P.y,hp:P.hp,mhp:P.mhp,gp:P.gp,mgp:P.mgp,xp:P.xp,xpN:P.xpN,lv:P.lv,sp:P.sp,cn:P.cn,gm:P.gm,it:P.it,ab:P.ab,ca:P.ca,kl:P.kl}}
+function applySave(d){if(!d||d.v!==1)return false;G.map=d.map||'centro';P.x=d.px;P.y=d.py;P.hp=d.hp;P.mhp=d.mhp;P.gp=d.gp;P.mgp=d.mgp;P.xp=d.xp;P.xpN=d.xpN;P.lv=d.lv;P.sp=d.sp;P.cn=d.cn;P.gm=d.gm;P.it=d.it;P.ab=d.ab;P.ca=d.ca;P.kl=d.kl;return true}
+function saveGame(){const d=getSaveData();try{localStorage.setItem('cr_save',JSON.stringify(d))}catch(e){}if(window._fbReady&&window._fbUID){try{window._fbSetDoc(window._fbDoc(window._fbDB,'saves',window._fbUID),d)}catch(e){}}}
+function loadGame(){try{const d=JSON.parse(localStorage.getItem('cr_save'));if(d&&d.v===1)return applySave(d)}catch(e){}return false}
+async function loadCloud(){if(!window._fbReady||!window._fbUID)return false;try{const snap=await window._fbGetDoc(window._fbDoc(window._fbDB,'saves',window._fbUID));if(snap.exists()){const cd=snap.data();const ld=JSON.parse(localStorage.getItem('cr_save'));if(cd&&cd.v===1&&(!ld||cd.lv>ld.lv||(cd.lv===ld.lv&&cd.kl>ld.kl))){applySave(cd);localStorage.setItem('cr_save',JSON.stringify(cd));return true}}}catch(e){}return false}
 function loop(){upd();drw();requestAnimationFrame(loop)}
 const sE=document.getElementById('S');sE.addEventListener('click',go);sE.addEventListener('touchstart',e=>{e.preventDefault();go()},{passive:false});
-function go(){if(G.on)return;sE.style.display='none';G.on=true;initAudio();setupT();if(loadGame()){ntf('💾 Partida cargada · LV'+P.lv)}else{ntf('🎮 ¡Bienvenido a Código Roto!')}playAmb(G.map)}
+async function go(){if(G.on)return;sE.style.display='none';G.on=true;initAudio();setupT();let loaded=loadGame();if(window._fbReady){const cloud=await loadCloud();if(cloud)loaded=true}if(loaded){ntf('💾 Partida cargada · LV'+P.lv)}else{ntf('🎮 ¡Bienvenido a Código Roto!')}playAmb(G.map)}
 setInterval(()=>{if(!G.on)return;Object.keys(M).forEach(k=>{M[k].en.forEach(e=>{if(!e.al){e.al=true;e.hp=e.mh}})})},25000);
 setInterval(()=>{if(G.on)saveGame()},30000);
 window.addEventListener('beforeunload',()=>{if(G.on)saveGame()});
