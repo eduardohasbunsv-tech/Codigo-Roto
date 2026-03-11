@@ -87,7 +87,7 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;posit
 </style>
 </head>
 <body>
-<div id="S"><h1>CÓDIGO ROTO</h1><div class="s1">SAN SALVADOR 2089</div><div class="s2" id="VR">v1.13 · FREE TO PLAY</div><div class="s3">— TOCA PARA JUGAR —</div></div>
+<div id="S"><h1>CÓDIGO ROTO</h1><div class="s1">SAN SALVADOR 2089</div><div class="s2" id="VR">v1.14 · FREE TO PLAY</div><div class="s3">— TOCA PARA JUGAR —</div></div>
 <div id="GW"><canvas id="G"></canvas>
 <div id="TC">
 <div class="jz" id="JZ"><div class="jb" id="JB"><div class="js" id="JS"></div></div></div>
@@ -108,7 +108,7 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;posit
 <div class="tc on" id="t-inv"></div><div class="tc" id="t-abl"></div><div class="tc" id="t-shp"></div><div class="tc" id="t-gem"></div>
 </div>
 <script>
-const VER='1.13';
+const VER='1.14';
 const cv=document.getElementById('G'),X=cv.getContext('2d'),T=16,
 C={c:'#00f0ff',p:'#ff2d7b',v:'#b44dff',g:'#39ff14',o:'#ff6a00',y:'#ffe600',r:'#ff3333',w:'#fff',sk:'#dda07a',hr:'#1a1a2e'};
 const G={w:320,h:180,s:1,on:false,cam:{x:0,y:0},map:'centro',f:0,keys:{},jx:0,jy:0,
@@ -335,7 +335,7 @@ function loadGame(){try{const d=JSON.parse(localStorage.getItem('cr_save'));if(d
 async function loadCloud(){if(!window._fbReady||!window._fbUID)return false;try{const snap=await window._fbGetDoc(window._fbDoc(window._fbDB,'saves',window._fbUID));if(snap.exists()){const cd=snap.data();const ld=JSON.parse(localStorage.getItem('cr_save'));if(cd&&cd.v===1&&(!ld||cd.lv>ld.lv||(cd.lv===ld.lv&&cd.kl>ld.kl))){applySave(cd);localStorage.setItem('cr_save',JSON.stringify(cd));return true}}}catch(e){}return false}
 function loop(){upd();drw();requestAnimationFrame(loop)}
 document.getElementById('VR').textContent='v'+VER+' · FREE TO PLAY';
-const sE=document.getElementById('S');sE.addEventListener('click',go);sE.addEventListener('touchstart',e=>{e.preventDefault();go()},{passive:false});
+const sE=document.getElementById('S');sE.addEventListener('click',go);sE.addEventListener('touchstart',e=>{e.preventDefault();go()},{passive:false});document.addEventListener('keydown',e=>{if(!G.on&&(e.key==='Enter'||e.key===' ')){e.preventDefault();go()}});
 async function go(){if(G.on)return;sE.style.display='none';G.on=true;initAudio();setupT();let loaded=loadGame();if(window._fbReady){const cloud=await loadCloud();if(cloud)loaded=true}if(loaded){ntf('💾 Partida cargada · LV'+P.lv);G.intro=3}else{G.intro=1;G.iSlide=0;G.iChar=0;G.iTimer=0;P.x=80;P.y=96;P.dir='right'}playAmb(G.map)}
 setInterval(()=>{if(G.on)saveGame()},30000);
 window.addEventListener('beforeunload',()=>{if(G.on)saveGame()});
