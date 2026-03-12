@@ -103,7 +103,7 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;posit
 <div class="tc on" id="t-inv"></div><div class="tc" id="t-abl"></div><div class="tc" id="t-shp"></div><div class="tc" id="t-gem"></div>
 </div>
 <script>
-const VER='1.16';
+const VER='1.17';
 const cv=document.getElementById('G'),X=cv.getContext('2d'),T=16,
 C={c:'#00f0ff',p:'#ff2d7b',v:'#b44dff',g:'#39ff14',o:'#ff6a00',y:'#ffe600',r:'#ff3333',w:'#fff',sk:'#dda07a',hr:'#1a1a2e'};
 const G={w:320,h:180,s:1,on:false,cam:{x:0,y:0},map:'centro',f:0,keys:{},jx:0,jy:0,
@@ -218,6 +218,7 @@ function doAct(){if(G.intro===1){advIntro();return}if(G.mn){togMn();return}if(G.
 function togMn(){if(G.intro===1)return;G.mn=!G.mn;const o=document.getElementById('OV');if(G.mn){o.classList.add('on');rI();rS();rA();rG();if(G.intro===2&&G.tut===5)advTut(6)}else o.classList.remove('on');sfx('menu')}
 function stD(np){G.da=true;G.dq=[...np.dl];G.dn=np;advD()}
 function advD(){sfx('dialog');const b=document.getElementById('DB');if(!G.dq.length){b.style.display='none';G.da=false;if(G.intro===2&&G.tut===2){advTut(3);return}if(G.dn&&G.dn.sh){G.mn=true;document.getElementById('OV').classList.add('on');sT('shp');rS();rI();rA();rG()}return}b.style.display='block';b.querySelector('.dn').textContent=G.dn.n;b.querySelector('.dt').textContent=G.dq.shift()}
+document.getElementById('DB').addEventListener('click',()=>{if(G.da)advD()});document.getElementById('DB').addEventListener('touchstart',e=>{e.preventDefault();if(G.da)advD()},{passive:false});
 document.querySelectorAll('.tb').forEach(b=>{const h=()=>sT(b.dataset.t);b.addEventListener('click',h);b.addEventListener('touchstart',e=>{e.preventDefault();h()},{passive:false})});
 document.getElementById('OX').addEventListener('click',togMn);document.getElementById('OX').addEventListener('touchstart',e=>{e.preventDefault();togMn()},{passive:false});
 function sT(t){document.querySelectorAll('.tb').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.tc').forEach(c=>c.classList.toggle('on',c.id==='t-'+t))}
