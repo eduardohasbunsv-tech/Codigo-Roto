@@ -286,7 +286,9 @@ else if(t===10){X.fillStyle=(tx+ty)%2===0?'#0a100a':'#080e08';X.fillRect(px,py,T
 else if(t===11){X.fillStyle='#380600';X.fillRect(px,py,T,T);const lg=Math.sin(G.f*.06+tx+ty)*.3;X.fillStyle=`rgba(255,50,0,${.35+lg})`;X.fillRect(px+2,py+2,T-4,T-4);X.fillStyle=`rgba(255,140,0,${.18+lg*.5})`;X.fillRect(px+4,py+4,T-8,T-8)}}
 m.po.forEach(p=>{const cx=p.x+p.w/2,cy=p.y+p.h/2;
 const dx=(P.x+P.w/2)-cx,dy=(P.y+P.h/2)-cy,dist=Math.sqrt(dx*dx+dy*dy);
-const openAmt=dist<16?1:dist<40?1-(dist-16)/24:0;
+const target=dist<16?1:dist<40?1-(dist-16)/24:0;
+if(p._oa===undefined)p._oa=0;p._oa+=(target-p._oa)*.12;if(Math.abs(p._oa-target)<.01)p._oa=target;
+const openAmt=p._oa;
 const dw=20,dh=28,doorX=cx-dw/2,doorY=cy-dh/2;
 X.fillStyle='#2a1a0a';X.fillRect(doorX-3,doorY-3,dw+6,dh+6);
 X.fillStyle='#3a2a14';X.fillRect(doorX-2,doorY-2,dw+4,dh+4);
