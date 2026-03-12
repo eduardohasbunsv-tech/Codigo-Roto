@@ -284,19 +284,33 @@ else if(t===8){X.fillStyle='#050908';X.fillRect(px,py,T,T);X.fillStyle='#38260e'
 else if(t===9){X.fillStyle='#161420';X.fillRect(px,py,T,T);X.fillStyle='#1e1c28';X.fillRect(px,py,T,3);X.fillRect(px,py,3,T);if(ty<=2){X.fillStyle='rgba(255,255,255,.06)';X.fillRect(px+2,py,T-4,3)}}
 else if(t===10){X.fillStyle=(tx+ty)%2===0?'#0a100a':'#080e08';X.fillRect(px,py,T,T);const fc=['#ff69b4','#ff4488','#ffaa00','#cc44ff'][(tx*5+ty*3)%4];X.fillStyle=fc;X.globalAlpha=.45+Math.sin(G.f*.03+tx+ty)*.3;X.fillRect(px+3+(tx*7)%8,py+2+(ty*5)%8,3,3);X.globalAlpha=1;X.fillStyle='#1a4a1a';X.fillRect(px+4+(tx*7)%8,py+5+(ty*5)%8,1,4)}
 else if(t===11){X.fillStyle='#380600';X.fillRect(px,py,T,T);const lg=Math.sin(G.f*.06+tx+ty)*.3;X.fillStyle=`rgba(255,50,0,${.35+lg})`;X.fillRect(px+2,py+2,T-4,T-4);X.fillStyle=`rgba(255,140,0,${.18+lg*.5})`;X.fillRect(px+4,py+4,T-8,T-8)}}
-m.po.forEach(p=>{const isH=p.w>p.h,cx=p.x+p.w/2,cy=p.y+p.h/2,pulse=Math.sin(G.f*.05);
-const gw=isH?48:28,gh=isH?28:48,gx=cx-gw/2,gy=cy-gh/2;
-X.fillStyle='#1a0a2e';X.fillRect(gx,gy,isH?5:gw,isH?gh:5);X.fillRect(gx,gy,isH?gw:5,isH?5:gh);
-if(isH){X.fillRect(gx+gw-5,gy,5,gh)}else{X.fillRect(gx,gy+gh-5,gw,5);X.fillRect(gx+gw-5,gy,5,gh)}
-X.fillStyle=C.v;X.globalAlpha=.7+pulse*.2;
-if(isH){X.fillRect(gx+5,gy+4,1,gh-4);X.fillRect(gx+gw-6,gy+4,1,gh-4);X.fillRect(gx+5,gy+4,gw-10,1)}
-else{X.fillRect(gx+4,gy+5,gw-4,1);X.fillRect(gx+4,gy+gh-6,gw-4,1);X.fillRect(gx+4,gy+5,1,gh-10)}
-X.fillStyle=C.c;X.globalAlpha=.15+pulse*.08;X.fillRect(gx+6,gy+6,gw-12,gh-12);
-X.fillStyle=C.v;X.globalAlpha=.06;for(let s=0;s<(isH?gw-12:gh-12);s+=4){if(isH)X.fillRect(gx+6+s,gy+6,1,gh-12);else X.fillRect(gx+6,gy+6+s,gw-12,1)}
-X.strokeStyle=C.c;X.lineWidth=.5;X.globalAlpha=.4+pulse*.15;X.strokeRect(gx-1,gy-1,gw+2,gh+2);X.globalAlpha=1;
-if(G.f%5===0)G.pt.push({x:cx-4+Math.random()*8,y:cy,vx:(Math.random()-.5)*.3,vy:-.3-Math.random()*.3,l:10+Math.random()*8,c:C.c,s:1.5});
-X.font='4px "Press Start 2P"';const nm=p.lb,tw=X.measureText(nm).width,lx=cx-tw/2,ly=gy-3;
-X.fillStyle='rgba(3,3,8,.7)';X.fillRect(lx-3,ly-6,tw+6,9);X.fillStyle=C.c;X.fillText(nm,lx,ly)});
+m.po.forEach(p=>{const cx=p.x+p.w/2,cy=p.y+p.h/2;
+const dx=(P.x+P.w/2)-cx,dy=(P.y+P.h/2)-cy,dist=Math.sqrt(dx*dx+dy*dy);
+const openAmt=dist<16?1:dist<40?1-(dist-16)/24:0;
+const dw=20,dh=28,doorX=cx-dw/2,doorY=cy-dh/2;
+X.fillStyle='#2a1a0a';X.fillRect(doorX-3,doorY-3,dw+6,dh+6);
+X.fillStyle='#3a2a14';X.fillRect(doorX-2,doorY-2,dw+4,dh+4);
+X.fillStyle='#1a0e04';X.fillRect(doorX,doorY,dw,dh);
+if(openAmt>0){const gap=Math.floor(openAmt*dw*.4);
+X.fillStyle='#060210';X.fillRect(cx-gap,doorY+2,gap*2,dh-4);
+const lw=Math.floor((dw/2-gap)*.9);
+X.fillStyle='#5a3a1a';X.fillRect(doorX+1,doorY+1,lw,dh-2);X.fillRect(doorX+dw-1-lw,doorY+1,lw,dh-2);
+X.fillStyle='#6b4824';X.fillRect(doorX+2,doorY+2,lw-2,dh-4);X.fillRect(doorX+dw-lw,doorY+2,lw-2,dh-4);
+X.fillStyle='#4a2e10';X.fillRect(doorX+2,doorY+Math.floor(dh*.3),lw-2,1);X.fillRect(doorX+2,doorY+Math.floor(dh*.6),lw-2,1);
+X.fillRect(doorX+dw-lw,doorY+Math.floor(dh*.3),lw-2,1);X.fillRect(doorX+dw-lw,doorY+Math.floor(dh*.6),lw-2,1);
+X.fillStyle=C.c;X.globalAlpha=.15+openAmt*.25;X.fillRect(cx-gap,doorY+2,gap*2,dh-4);X.globalAlpha=1;
+if(G.f%4===0&&openAmt>.3)G.pt.push({x:cx-2+Math.random()*4,y:doorY+dh,vx:0,vy:.3+Math.random()*.2,l:8+Math.random()*6,c:C.c,s:1})}
+else{X.fillStyle='#5a3a1a';X.fillRect(doorX+1,doorY+1,dw-2,dh-2);
+X.fillStyle='#6b4824';X.fillRect(doorX+2,doorY+2,dw-4,dh-4);
+X.fillStyle='#4a2e10';X.fillRect(doorX+2,doorY+Math.floor(dh*.3),dw-4,1);X.fillRect(doorX+2,doorY+Math.floor(dh*.6),dw-4,1);
+X.fillRect(cx,doorY+2,1,dh-4);
+X.fillStyle='#c8a84e';X.fillRect(doorX+dw-5,cy-1,2,2);
+X.fillStyle='#ffd700';X.fillRect(doorX+dw-5,cy-1,1,1)}
+X.fillStyle='#2a1a0a';X.fillRect(doorX-3,doorY-6,dw+6,4);
+X.fillStyle='#3a2a14';X.fillRect(doorX-2,doorY-5,dw+4,3);
+X.fillStyle=C.c;X.globalAlpha=.5+Math.sin(G.f*.08)*.3;X.fillRect(doorX-2,doorY-6,dw+4,1);X.globalAlpha=1;
+X.font='4px "Press Start 2P"';const nm=p.lb,tw=X.measureText(nm).width,lx=cx-tw/2,ly=doorY-9;
+X.fillStyle='rgba(3,3,8,.75)';X.fillRect(lx-3,ly-5,tw+6,8);X.fillStyle=C.c;X.fillText(nm,lx,ly)});
 m.it.forEach(it=>{if(it.tk)return;const bob=Math.sin(G.f*.07+it.x)*2;X.font='9px serif';X.fillText(it.i,it.x+2,it.y+10+bob)});
 m.en.forEach(e=>{if(!e.al)return;const ex=Math.floor(e.x),ey=Math.floor(e.y);if(e.ht>0){X.fillStyle=C.w;X.fillRect(ex,ey,e.w,e.h)}else{X.fillStyle=e.cl;X.fillRect(ex,ey,e.w,e.h);X.fillStyle=C.w;X.fillRect(ex+2,ey+2,2,2);X.fillRect(ex+6,ey+2,2,2);X.fillStyle='#000';X.fillRect(ex+3,ey+3,1,1);X.fillRect(ex+7,ey+3,1,1);if(e.tp==='boss'&&G.f%4<2){X.fillStyle='rgba(255,0,80,.3)';X.fillRect(ex-1,ey+Math.random()*e.h,e.w+2,2)}}
 X.fillStyle='rgba(0,0,0,.5)';X.fillRect(ex-1,ey-5,e.w+2,3);X.fillStyle=e.hp/e.mh>.3?C.g:C.r;X.fillRect(ex,ey-4,(e.hp/e.mh)*e.w,1);if(e.tp==='boss'){X.fillStyle=C.r;X.font='3px "Press Start 2P"';X.fillText(e.nm,ex-8,ey-8)}});
