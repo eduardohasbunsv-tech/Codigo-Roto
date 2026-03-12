@@ -336,7 +336,7 @@ async function loadCloud(){if(!window._fbReady||!window._fbUID)return false;try{
 function loop(){upd();drw();requestAnimationFrame(loop)}
 document.getElementById('VR').textContent='v'+VER+' · FREE TO PLAY';
 const sE=document.getElementById('S');sE.addEventListener('click',go);sE.addEventListener('touchstart',e=>{e.preventDefault();go()},{passive:false});document.addEventListener('keydown',e=>{if(!G.on&&(e.key==='Enter'||e.key===' ')){e.preventDefault();go()}});
-function go(){if(G.on)return;sE.style.display='none';G.on=true;try{initAudio()}catch(e){}setupT();let loaded=loadGame();if(loaded){ntf('💾 Partida cargada · LV'+P.lv);G.intro=3}else{G.intro=1;G.iSlide=0;G.iChar=0;G.iTimer=0;P.x=80;P.y=96;P.dir='right';ntf('🎮 ¡Código Roto!')}try{playAmb(G.map)}catch(e){}if(window._fbReady){loadCloud().then(cloud=>{if(cloud)ntf('☁️ Save cloud cargado')}).catch(()=>{})}}
+function go(){if(G.on)return;document.getElementById('S').style.display='none';G.on=true;try{initAudio()}catch(e){}setupT();let loaded=loadGame();if(loaded){ntf('💾 Partida cargada · LV'+P.lv);G.intro=3}else{G.intro=1;G.iSlide=0;G.iChar=0;G.iTimer=0;P.x=80;P.y=96;P.dir='right';ntf('🎮 ¡Código Roto!')}try{playAmb(G.map)}catch(e){}if(window._fbReady){loadCloud().then(cloud=>{if(cloud)ntf('☁️ Save cloud cargado')}).catch(()=>{})}}
 setInterval(()=>{if(G.on)saveGame()},30000);
 window.addEventListener('beforeunload',()=>{if(G.on)saveGame()});
 setInterval(()=>{if(!G.on)return;Object.keys(M).forEach(k=>{M[k].en.forEach(e=>{if(!e.al){e.al=true;e.hp=e.mh}})})},25000);
