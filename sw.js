@@ -1,4 +1,4 @@
-const CACHE_NAME = 'codigo-roto-v1.15';
+const CACHE_NAME = 'codigo-roto-v1.16';
 const ASSETS = [
   'codigo_roto_v1.html',
   'manifest.json',
